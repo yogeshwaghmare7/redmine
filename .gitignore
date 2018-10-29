@@ -42,3 +42,4 @@ tmp/*
 Gemfile.local
 files/*
 logs
+vendor
