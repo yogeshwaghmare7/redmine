@@ -29,9 +29,9 @@ gem 'tzinfo-data', platforms: [:mingw, :x64_mingw, :mswin]
 gem "rbpdf", "~> 1.19.3"
 
 # Optional gem for LDAP authentication
-group :ldap do
-  gem "net-ldap", "~> 0.12.0"
-end
+#group :ldap do
+  #gem "net-ldap", "~> 0.12.0"
+#end
 
 # Optional gem for OpenID authentication
 group :openid do
