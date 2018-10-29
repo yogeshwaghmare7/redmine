@@ -1,0 +1,26 @@
+<% @report.hours.collect {|h| h[criterias[level]].to_s}.uniq.each do |value| %>
+<% hours_for_value = select_hours(hours, criterias[level], value) -%>
+<% next if hours_for_value.empty? -%>
+<tr class="<%= criterias.length > level+1 ? 'subtotal' : 'last-level' %>">
+  <%= ("<td></td>" * level).html_safe %>
+  <td class="name"><%= format_criteria_value(@report.available_criteria[criterias[level]], value) %></td>
+  <%= ("<td></td>" * (criterias.length - level - 1)).html_safe -%>
+  <% total = 0 -%>
+  <% @report.periods.each do |period| -%>
+      <% sum = sum_hours(select_hours(hours_for_value, @report.columns, period.to_s))[0]; total += sum -%>
+      <% i = user_period_estimated_hours(hours_for_value, @report.columns, period)[1] 
+      %>
+       <% c = sum_hours(select_hours(hours_for_value, @report.columns, period.to_s))[1] 
+      %>
+    <td class="hours"><%= link_to html_hours(format_hours(sum)) ,time_entry_details_path(c) if sum > 0 %></td>
+<td class="hours"><%= link_to user_period_estimated_hours(hours_for_value, @report.columns, period)[0],details_path(i)%></td>
+  <% end -%>
+  <td class="hours"><%= link_to html_hours(format_hours(total)) if total > 0 %></td>
+<% ids = user_estimated_hours(hours_for_value, @report.columns, @report.periods.uniq )[1] %>
+<td class="hours"><%= link_to user_estimated_hours(hours_for_value, @report.columns, @report.periods.uniq)[0], details_path(ids) %></td>
+
+  <% if criterias.length > level+1 -%>
+    <%= render(:partial => 'report_criteria', :locals => {:criterias => criterias, :hours => hours_for_value, :level => (level + 1)}) %>
+  <% end -%>
+
+  <% end %>

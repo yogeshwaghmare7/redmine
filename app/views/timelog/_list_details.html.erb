@@ -1,0 +1,28 @@
+<div class="autoscroll">
+<table class="list issues odd-even sort-by-id sort-desc">
+  <thead>
+    <tr>
+        <th>#</th>
+        <th>Project</th>
+        <th>Subject</th>
+        <th>Assignee</th>
+        <th>Tracker</th>
+        <th>Status</th>
+        <th>Estimated time</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  <%@issues.each do |i|%>
+      <td class="id"><a href="/issues/<%=i.id%>"><%=i.id%></a></td>
+      <td class="project"><%=project_name(i.project_id)%></td>
+      <td class="subject"><%=i.subject%></td>
+      <td class="assigned_to"><a class="user active" href="/users/<%=i.assigned_to_id%>"><%= assignee_name(i.assigned_to_id)%></a></td>
+      <td class="tracker"><%=issue_tracker(i.tracker_id)%></td>
+      <td class="status"><%=task_status(i.status_id)%></td>
+      <td class="estimated_hours"><%=i.estimated_hours%></td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+</div>

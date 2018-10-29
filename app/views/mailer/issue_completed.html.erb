@@ -1,0 +1,23 @@
+<p><%= @message %><br />
+<% if @url && @title -%>
+<%= link_to @title, @url -%>
+<% elsif @url -%>
+<%= link_to @url  -%>
+<% elsif @title -%>
+<%= content_tag :h1, @title -%>
+<% end %></p>
+
+
+<p style="font-size: 14px;">I am writing this letter to acknowledge your achievement in completing our <b><%= @project_name[0]%></b> project's  milestone <b><%= @version['name']%></b> on time and that too in an efficient way.</p>
+
+<p style="font-size: 14px;"><%= @pro_url%></p>
+
+
+
+
+<p>From,</p>
+<p>Cosagous </p>
+<%= l(:label_date) %>: <strong><%= format_time Time.now, true, @user %></strong></p>
+<p>Indore (M.P.)</p>
+
+

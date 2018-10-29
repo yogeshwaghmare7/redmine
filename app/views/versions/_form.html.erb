@@ -1,0 +1,87 @@
+<%= back_url_hidden_field_tag %>
+<%= error_messages_for 'version' %>
+
+<div class="box tabular">
+  <p><%= f.text_field :name, :size => 60, :required => true %></p>
+  <p><%= f.text_field :description, :size => 60 %></p>
+  <% unless @version.new_record? %>
+    <p><%= f.select :status, Version::VERSION_STATUSES.collect {|s| [l("version_status_#{s}"), s]} ,:html =>{:class=>"js-my-select"} %></p>
+    <% if @version.status == "completed" %>
+        <%= f.fields_for :version_activities, @version_activities  do |q| -%>
+          <div class="splitcontentleft-invoice">
+            <p> <%= q.check_box :is_invoice, :label => :label_for_is_invioce , :disabled => @version_activities.is_invoice==true%> </p>
+          </div>
+          <div class="splitcontentright-invoice">
+            <p><%= q.date_field :invoice_raised_date, :size => 10, :disabled => @version_activities.is_invoice==true %><%= calendar_for('version_invoice_raised_date') %></p>
+          </div>
+          <% if @version_activities.is_invoice == true%>
+              <div class="splitcontentleft-payment">
+                <p><%= q.check_box :is_payment ,:label => :label_for_payment_done,  :disabled => @version_activities.is_payment==true %></p>
+              </div>
+              <div class="splitcontentright-payment">
+                <p><%= q.date_field :payment_received_date, :size => 10 ,:disabled => @version_activities.is_payment==true %><%= calendar_for('version_payment_received_date') %></p>
+              </div>
+          <% end%>
+          <% end -%>
+     
+    <%end%>
+
+<% end %>
+
+<p><%= f.text_field :wiki_page_title, :label => :label_wiki_page, :size => 60, :disabled => @project.wiki.nil? %></p>
+<p><%= f.date_field :effective_date, :size => 10 %><%= calendar_for('version_effective_date') %></p>
+<p><%= f.select :sharing, @version.allowed_sharings.collect {|v| [format_version_sharing(v), v]} %></p>
+<% if @version.new_record? %>
+<p><%= f.check_box :default_project_version, :label => :field_default_version %></p>
+<% end %>
+
+<% @version.custom_field_values.each do |value| %>
+  <p><%= custom_field_tag_with_label :version, value %></p>
+<% end %>
+<%= hidden_field_tag 'pro[]', @project %>
+<%= hidden_field_tag 'pro_id', @project.id %>
+
+<%#= check_box_tag '[email][]', 'Physics', checked('Physics'), id: 'useri.id' %>
+
+<% if @user_by_manager.present? %>
+<% @user_by_manager.keys.sort.each do |m_role| %>
+  <% @user_by_manager[m_role].sort.each do |m_useri| %>
+      <%= hidden_field_tag '[manager][]', m_useri %>
+    <%end%>
+<% end %>
+<% end %>
+
+<div class="js-my-image completed show_status">
+  
+  <% if @users_by_role.present? %>
+  <div class="members box">
+    <h3 class="icon icon-group"><%=l(:label_email_member_plural)%></h3>
+    <% @users_by_role.keys.sort.each do |role| %>
+      <p><span class="label"><%= check_box_tag 'user[]', @users_by_role[role].sort.collect{|u| u.id}.join(",").html_safe %><%= role %>:</span><%= @users_by_role[role].sort.collect{|u| link_to_user u}.join(", ").html_safe %></p>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+<div class="js-my-image closed"></div>
+<div class="js-my-image locked"></div>
+<div class="js-my-image open"></div>
+
+<script type="text/javascript">
+$(function() {
+  var version_status = $('#version_status').val();
+  var version_is_payment = $('#version_version_activities_attributes_0_is_payment').val();
+  if (version_status == "completed" && version_is_payment == true ){
+    $('.show_status').css('display', 'none') ;
+  }else if (version_status == "completed"){
+    $('.show_status').css('display', 'block') ;
+  }
+  var $select = $('#version_status'),
+      $images =  $('.js-my-image');
+
+  $select.on('change', function() {
+    var value = '.' + $(this).val();
+    $images.show().not(value).hide();
+  });
+});
+</script>
+

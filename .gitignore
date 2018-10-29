@@ -1,49 +1,44 @@
-*.rbc
-capybara-*.html
-.rspec
-/log
-/tmp
+/.project
+/.idea
+/.loadpath
+/.powrc
+/.rvmrc
+/config/additional_environment.rb
+/config/configuration.yml
+/config/database.yml
+/config/email.yml
+/config/secrets.yml
+/config/initializers/session_store.rb
+/config/initializers/secret_token.rb
+/coverage
+/db/*.db
 /db/*.sqlite3
-/db/*.sqlite3-journal
-/public/system
-/coverage/
-/spec/tmp
-*.orig
-rerun.txt
-pickle-email-*.html
+/db/schema.rb
+/files/*
+/lib/redmine/scm/adapters/mercurial/redminehelper.pyc
+/lib/redmine/scm/adapters/mercurial/redminehelper.pyo
+/log/*.log*
+/log/mongrel_debug
+/plugins/*
+!/plugins/README
+/public/dispatch.*
+/public/plugin_assets/*
+/public/themes/*
+!/public/themes/alternate
+!/public/themes/classic
+!/public/themes/README
+tmp/*
+/tmp/cache/*
+/tmp/pdf/*
+/tmp/sessions/*
+/tmp/sockets/*
+/tmp/test/*
+/tmp/thumbnails/*
+/vendor/cache
+*.rbc
 
-# TODO Comment out this rule if you are OK with secrets being uploaded to the repo
-config/initializers/secret_token.rb
-config/master.key
-
-# Only include if you have production secrets in this file, which is no longer a Rails default
-# config/secrets.yml
-
-# dotenv
-# TODO Comment out this rule if environment variables can be committed
-.env
-
-## Environment normalization:
 /.bundle
-/vendor/bundle
-
-# these should all be checked in to normalize the environment:
-# Gemfile.lock, .ruby-version, .ruby-gemset
-
-# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-.rvmrc
-
-# if using bower-rails ignore default bower_components path bower.json files
-/vendor/assets/bower_components
-*.bowerrc
-bower.json
-
-# Ignore pow environment settings
-.powenv
-
-# Ignore Byebug command history file.
-.byebug_history
-
-# Ignore node_modules
-node_modules/
-
+/Gemfile.lock
+Gemfile.local
+files/*
+logs

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  version_id: 
+  invoice_raised_user_id: 1
+  payment_received_user_id: 1
+  is_invoice: false
+  is_payment: false
+  invoice_raised_date: 2017-12-28 13:24:10
+  payment_received_date: 2017-12-28 13:24:10
+
+two:
+  version_id: 
+  invoice_raised_user_id: 1
+  payment_received_user_id: 1
+  is_invoice: false
+  is_payment: false
+  invoice_raised_date: 2017-12-28 13:24:10
+  payment_received_date: 2017-12-28 13:24:10
